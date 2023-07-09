@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from rest_framework.authtoken.views import obtain_auth_token
+
 from rest_framework import routers
 from restaurant.views import UserViewSet, BookingViewSet
 
@@ -27,7 +29,10 @@ router.register(r'tables', BookingViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('restaurant/booking/', include(router.urls)),
+    path('api-token-auth/', obtain_auth_token),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
     path('restaurant/menu/', include('restaurant.urls')),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.authtoken')),
 ]
